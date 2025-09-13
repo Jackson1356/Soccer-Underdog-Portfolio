@@ -1,27 +1,37 @@
-## Visualization and Prediction of Soccer Games in Europe and Japan
+# Underdog Advisor (Starter Kit)
 
-# Introduction
-Welcome to the Predicting Soccer Game Results repository! This project aims to leverage the power of statistical analysis and machine learning to predict the outcomes of soccer games using odds data provided by bookmakers. The intuition behind this project is that the odds provided by bookmakers encapsulate extensive expert analysis and market sentiment, making them a rich source of information for predicting soccer game outcomes. By analyzing these odds, which are dynamically adjusted based on various factors like team performance and player conditions, we can extract valuable insights. Utilizing statistical models and machine learning algorithms, we aim to transform this odds data into accurate predictions of game results, leveraging the quantifiable and information-rich nature of the odds.
+This kit gives you an end-to-end pipeline to find likely **underdog surprises** and allocate stakes for a batch of games on the same day.
 
+## 1) Train the model & produce recommendations
 
-# Japanese Soccer League (J1 League)
-Visualization and prediction of Japan soccer league (J1 League) is in J1League_prediction.ipynb. I first used game results and odds from Pinnacle from 2012-2024 to predict game results. Then information about match importance and Soccer Power Index (SPI) are included.
-![image](https://github.com/Jackson1356/SoccerPrediction/assets/108843164/b68634df-6a49-44c3-a523-6a8c245c35ed)
+```bash
+python underdog_model.py --data_dir ./data --bankroll 1000 --top_k 12 --upset_bias 1.1
+# or for a specific match date
+python underdog_model.py --data_dir ./data --date 2024-12-26 --bankroll 1200 --top_k 15
+```
 
+- Outputs:
+  - `model.pkl`, `features.json`
+  - `recommendations.csv` with columns: `Date,Div,HomeTeam,AwayTeam,B365H,B365D,B365A,p_upset,EV_H,EV_D,EV_A,EV_max,EV_side,stake_conservative,stake_balanced,stake_risky`
 
-# EPL Visualization
-In epl_visualization.ipynb, I analyzed game results and odds data for matches in 2019-2024 seasons with a total of 1615 matches. Several statistics about game results, total goals, half-time and full-time analysis and odds are plotted.
-![image](https://github.com/Jackson1356/SoccerPrediction/assets/108843164/68b897c9-a778-4232-ba09-ab25e8ad7563)
+## 2) Re-allocate bankroll after the fact
 
-![image](https://github.com/Jackson1356/SoccerPrediction/assets/108843164/dc8d5cc2-43ab-4efb-bc9f-047083f556b9)
+```bash
+python bet_allocator.py --reco_csv recommendations.csv --bankroll 1500 --mode balanced
+```
 
-# Major Leagues in Europe
-In euro_leagues_prediction.ipynb, games of Germany, England, Spain and Italy leagues from 2019-2024 are analyzed and predicted by models including random forest, XGBoost and Logistic Regression. PCA, T-SNE and UMAP are also used to reduce dimensions and visualize the odds data.
-![image](https://github.com/Jackson1356/SoccerPrediction/assets/108843164/5e99a085-7dad-490c-8e37-c891b67f968a)
+## 3) Visualize in the web dashboard
 
+Open `advisor_dashboard.html` in your browser and load `recommendations.csv` via the file picker. The look-and-feel is compatible with your existing tracker page so you can iframe or merge sections.
 
+## Modeling notes
 
-# Data Source
-odds data: https://football-data.co.uk/
+- **Target (upset):** We mark an upset if the realized outcome (H/D/A) had the *lowest* normalized implied probability from Bet365 odds **or** that realized probability was `< 0.33`.
+- **Features:** odds (B365H/D/A), Asian handicap line & odds if present, shots/SOT when available, and **recency form** for both teams (rolling last-5 goals for/against and average points).
+- **Model:** `GradientBoostingClassifier` (sklearn). You can swap in XGBoost/LightGBM later.
+- **Ranking:** For a given match day we compute model `p_upset` then expected value (EV) for each side via `EV = p*(odds-1) - (1-p)` and keep the best side per game.
+- **Allocation:** Kelly fraction with caps → conservative (5%), balanced (15%), risky (30%).
 
-spi data: https://github.com/fivethirtyeight/data/tree/master/soccer-spi
+## Integrating with your tracker
+
+- This dashboard mirrors the styling of your **Soccer Betting Tracker** (colors, tables, Chart.js). You can embed it or copy its components into your existing `soccer_betting.html`.
