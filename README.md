@@ -26,56 +26,83 @@ Moneyline: `FTR ∈ {H,D,A}` • Totals & AH: `FTHG`, `FTAG`
 
 ---
 
-## Notation (symbols used in math below)
+## Notation (symbols used in formulas)
 
-We use short symbols; the **code still uses original column names**.
+We use short symbols; the **code still uses the original column names**.
 
-- Moneyline open: O_H(B365H), O_D(B365D), O_A(B365A)  
-- Moneyline close: C_H(B365CH), C_D(B365CD), C_A(B365CA)  
-- Totals open: O_>2.5(B365>2.5), O_<2.5(B365<2.5)  
-- Totals close: C_>2.5(B365C>2.5), C_<2.5(B365C<2.5)  
-- AH: h_open(AHh), h_close(AHCh); O_AH,H(B365AHH), O_AH,A(B365AHA); C_AH,H(B365CAHH), C_AH,A(B365CAHA)
+- Moneyline open: $O_H$ (B365H), $O_D$ (B365D), $O_A$ (B365A)  
+- Moneyline close: $C_H$ (B365CH), $C_D$ (B365CD), $C_A$ (B365CA)  
+- Totals open: $O_{>2.5}$ (B365>2.5), $O_{<2.5}$ (B365<2.5)  
+- Totals close: $C_{>2.5}$ (B365C>2.5), $C_{<2.5}$ (B365C<2.5)  
+- AH: open line $h_{\text{open}}$ (AHh), close line $h_{\text{close}}$ (AHCh); home odds $O_{\text{AH,H}}$ (B365AHH), away odds $O_{\text{AH,A}}$ (B365AHA); closing $C_{\text{AH,H}}$ (B365CAHH), $C_{\text{AH,A}}$ (B365CAHA)
 
 ---
 
-## Engineered features (render‑safe code blocks)
+## Engineered features
 
 ### 1) 1X2 gaps & changes
-```text
-ml_open_gap   = O_A - O_H
-ml_close_gap  = C_A - C_H
-ml_gap_change = ml_close_gap - ml_open_gap
 
-ml_open_min   = min(O_H, O_D, O_A)
-ml_open_max   = max(O_H, O_D, O_A)
-ml_close_min  = min(C_H, C_D, C_A)
-ml_close_max  = max(C_H, C_D, C_A)
+$$
+\mathrm{ml\_open\_gap} = O_A - O_H
+$$
 
-# per-side moves
-ml_delta_H = C_H - O_H
-ml_reld_H  = (C_H / O_H) - 1
-ml_delta_D = C_D - O_D
-ml_reld_D  = (C_D / O_D) - 1
-ml_delta_A = C_A - O_A
-ml_reld_A  = (C_A / O_A) - 1
-```
+$$
+\mathrm{ml\_close\_gap} = C_A - C_H
+$$
+
+$$
+\mathrm{ml\_gap\_change} = \mathrm{ml\_close\_gap} - \mathrm{ml\_open\_gap}
+$$
+
+$$
+\mathrm{ml\_open\_min} = \min\{O_H,O_D,O_A\}, \quad
+\mathrm{ml\_open\_max} = \max\{O_H,O_D,O_A\}
+$$
+
+$$
+\mathrm{ml\_close\_min} = \min\{C_H,C_D,C_A\}, \quad
+\mathrm{ml\_close\_max} = \max\{C_H,C_D,C_A\}
+$$
+
+$$
+\mathrm{ml\_delta\_H}=C_H-O_H, \quad \mathrm{ml\_reld\_H}= \frac{C_H}{O_H}-1
+$$
+
+$$
+\mathrm{ml\_delta\_D}=C_D-O_D, \quad \mathrm{ml\_reld\_D}= \frac{C_D}{O_D}-1
+$$
+
+$$
+\mathrm{ml\_delta\_A}=C_A-O_A, \quad \mathrm{ml\_reld\_A}= \frac{C_A}{O_A}-1
+$$
 
 ### 2) Totals movement
-```text
-tot_delta_over  = C_>2.5 - O_>2.5
-tot_delta_under = C_<2.5 - O_<2.5
-tot_reld_over   = (C_>2.5 / O_>2.5) - 1
-tot_reld_under  = (C_<2.5 / O_<2.5) - 1
-```
+
+$$
+\mathrm{tot\_delta\_over} = C_{>2.5} - O_{>2.5}, \qquad
+\mathrm{tot\_delta\_under} = C_{<2.5} - O_{<2.5}
+$$
+
+$$
+\mathrm{tot\_reld\_over} = \frac{C_{>2.5}}{O_{>2.5}} - 1, \qquad
+\mathrm{tot\_reld\_under} = \frac{C_{<2.5}}{O_{<2.5}} - 1
+$$
 
 ### 3) Asian Handicap movement
-```text
-ah_line_change      = h_close - h_open
-ah_delta_home_odds  = C_AH,H - O_AH,H
-ah_reld_home_odds   = (C_AH,H / O_AH,H) - 1
-ah_delta_away_odds  = C_AH,A - O_AH,A
-ah_reld_away_odds   = (C_AH,A / O_AH,A) - 1
-```
+
+$$
+\mathrm{ah\_line\_change} = h_{\text{close}} - h_{\text{open}}
+$$
+
+$$
+\mathrm{ah\_delta\_home\_odds}=C_{\text{AH,H}}-O_{\text{AH,H}}, \qquad
+\mathrm{ah\_reld\_home\_odds}= \frac{C_{\text{AH,H}}}{O_{\text{AH,H}}}-1
+$$
+
+$$
+\mathrm{ah\_delta\_away\_odds}=C_{\text{AH,A}}-O_{\text{AH,A}}, \qquad
+\mathrm{ah\_reld\_away\_odds}= \frac{C_{\text{AH,A}}}{O_{\text{AH,A}}}-1
+$$
 
 ---
 
@@ -94,6 +121,7 @@ All numeric features are imputed and scaled.
 ### Implied probability (naïve)
 
 Given decimal odds $o$,
+
 $$
 \hat{p}=\frac{1}{o}.
 $$
@@ -101,6 +129,7 @@ $$
 ### Moneyline (multinomial logistic)
 
 For features $x$ and classes $k\in\{H,D,A\}$,
+
 $$
 P(y=k\mid x)=\frac{e^{w_k^\top x}}{\sum_{j\in\{H,D,A\}} e^{w_j^\top x}}.
 $$
@@ -114,6 +143,7 @@ $$
 ### Expected value (single bet)
 
 With model probability $p$ and odds $o$,
+
 $$
 \mathrm{EV}=p\,(o-1)-(1-p).
 $$
@@ -121,6 +151,7 @@ $$
 ### Variance proxy (per \$1)
 
 Let $\mu=\mathrm{EV}$, win payoff $o-1$, loss payoff $-1$:
+
 $$
 \sigma^2 = p\,(o-1-\mu)^2 + (1-p)\,(-1-\mu)^2.
 $$
@@ -128,6 +159,7 @@ $$
 ### Scoring & selection
 
 Sharpe‑like score (keep $\mu>0$):
+
 $$
 \mathrm{score}=\frac{\mu}{\sigma+\varepsilon}.
 $$
@@ -135,6 +167,7 @@ $$
 ### Kelly stake (capped)
 
 Let $b=o-1$, $q=1-p$,
+
 $$
 f^*=\frac{b\,p-q}{b}.
 $$
@@ -150,6 +183,7 @@ $$
 
 Let $g=\mathrm{FTHG}-\mathrm{FTAG}$, line $h$, odds $o$.  
 Quarter‑lines split the unit in half; profit:
+
 $$
 \mathrm{profit}(g,h,o)=
 \begin{cases}
@@ -158,6 +192,7 @@ o-1, & \text{win},\\
 -1,  & \text{loss},
 \end{cases}
 $$
+
 with half‑wins / half‑losses for $h=\pm0.25,\pm0.75$.
 
 ---
@@ -183,11 +218,13 @@ Low‑risk uses tighter caps; High‑risk allows larger stakes and more parlay e
 ## Worked examples
 
 Single (1X2): if $o=2.20$, $p=0.50$,
+
 $$
 \mathrm{EV}=0.5(2.20-1)-0.5=0.10.
 $$
 
 Parlay (2‑leg): $o_1=1.85$, $p_1=0.58$; $o_2=2.05$, $p_2=0.52$.
+
 $$
 p_{\text{par}}=0.3016,\quad o_{\text{par}}=3.7925,\quad
 \mathrm{EV}_{\text{par}}\approx 0.143.
