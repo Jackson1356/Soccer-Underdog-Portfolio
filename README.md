@@ -2,7 +2,6 @@
 
 **Goal:** Learn from **opening** and **closing** odds/lines to spot value (esp. underdogs & mispricings), then build **unified portfolios** (mix of **singles** and **2‑leg parlays**) at two risk levels: **Low** and **High**.
 
-> ⚠️ Research project. Betting involves risk. Use responsibly.
 
 ---
 
@@ -50,7 +49,7 @@ $$
 \end{aligned}
 $$
 
-### 1) 1X2 gaps & changes
+### 1 1X2 gaps & changes
 
 $$
 \mathrm{ml\_open\_gap} = O_A - O_H
@@ -86,7 +85,7 @@ $$
 \mathrm{ml\_delta\_A}=C_A-O_A, \quad \mathrm{ml\_reld\_A}= \frac{C_A}{O_A}-1
 $$
 
-### 2) Totals movement (Over/Under 2.5)
+### 2 Totals movement (Over/Under 2.5)
 
 $$
 \mathrm{tot\_delta\_over} = C_O - O_O, \qquad
@@ -98,7 +97,7 @@ $$
 \mathrm{tot\_reld\_under} = \frac{C_U}{O_U} - 1
 $$
 
-### 3) Asian Handicap movement
+### 3 Asian Handicap movement
 
 $$
 \mathrm{ah\_line\_change} = h_c - h_o
