@@ -1,31 +1,17 @@
-# Underdog Advisor — Opening vs Closing Odds (Unified Betting Portfolios)
+# Underdog Advisor for Soccer Betting — (Unified Betting Portfolios)
 
 **Goal:** Learn from **opening** and **closing** odds/lines to spot value (esp. underdogs & mispricings), then build **unified portfolios** (mix of **singles** and **2‑leg parlays**) at two risk levels: **Low** and **High**.
 
 
 ---
 
-## Data requirements (exact column names)
+## Data
 
-Every **training** file must include **all** below (else it’s skipped). The **fixture** for recommending must also include them.
+Data Source: https://football-data.co.uk/
 
-**1X2 (Moneyline)**  
-Open: `B365H`, `B365D`, `B365A` • Close: `B365CH`, `B365CD`, `B365CA`
+We used opening and closing odds of [Bet365](https://www.bet365.com/).
 
-**Totals (2.5 goals)**  
-Open: `B365>2.5`, `B365<2.5` • Close: `B365C>2.5`, `B365C<2.5`
-
-**Asian Handicap**  
-Open: `AHh`, `B365AHH`, `B365AHA` • Close: `AHCh`, `B365CAHH`, `B365CAHA`
-
-**Labels (training only)**  
-Moneyline: `FTR ∈ {H,D,A}` • Totals & AH: `FTHG`, `FTAG`
-
-`HomeTeam` / `AwayTeam` are optional (display only).
-
----
-
-## Notation (symbols used in formulas)
+### Notation (symbols used in formulas)
 
 We use short symbols; the **code still uses the original column names**.
 
