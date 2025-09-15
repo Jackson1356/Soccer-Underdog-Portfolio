@@ -40,6 +40,16 @@ We use short symbols; the **code still uses the original column names**.
 
 ## Engineered features
 
+To avoid ambiguous subscripts, we introduce simple aliases used only in the formulas below:
+
+$$
+\begin{aligned}
+& \text{Let } O_H,O_D,O_A \text{ be OPEN 1X2 odds; } C_H,C_D,C_A \text{ be CLOSING 1X2 odds}.\\
+& \text{Let } O_O,O_U \text{ be OPEN odds for Over/Under 2.5; } C_O,C_U \text{ be CLOSING odds for Over/Under 2.5}.\\
+& \text{Let } h_o,h_c \text{ be AH open/close lines; } O_H^{AH},O_A^{AH},C_H^{AH},C_A^{AH} \text{ be AH odds}.
+\end{aligned}
+$$
+
 ### 1) 1X2 gaps & changes
 
 $$
@@ -76,34 +86,33 @@ $$
 \mathrm{ml\_delta\_A}=C_A-O_A, \quad \mathrm{ml\_reld\_A}= \frac{C_A}{O_A}-1
 $$
 
-### 2) Totals movement
+### 2) Totals movement (Over/Under 2.5)
 
 $$
-\mathrm{tot\_delta\_over} = C_{>2.5} - O_{>2.5}, \qquad
-\mathrm{tot\_delta\_under} = C_{<2.5} - O_{<2.5}
+\mathrm{tot\_delta\_over} = C_O - O_O, \qquad
+\mathrm{tot\_delta\_under} = C_U - O_U
 $$
 
 $$
-\mathrm{tot\_reld\_over} = \frac{C_{>2.5}}{O_{>2.5}} - 1, \qquad
-\mathrm{tot\_reld\_under} = \frac{C_{<2.5}}{O_{<2.5}} - 1
+\mathrm{tot\_reld\_over} = \frac{C_O}{O_O} - 1, \qquad
+\mathrm{tot\_reld\_under} = \frac{C_U}{O_U} - 1
 $$
 
 ### 3) Asian Handicap movement
 
 $$
-\mathrm{ah\_line\_change} = h_{\text{close}} - h_{\text{open}}
+\mathrm{ah\_line\_change} = h_c - h_o
 $$
 
 $$
-\mathrm{ah\_delta\_home\_odds}=C_{\text{AH,H}}-O_{\text{AH,H}}, \qquad
-\mathrm{ah\_reld\_home\_odds}= \frac{C_{\text{AH,H}}}{O_{\text{AH,H}}}-1
+\mathrm{ah\_delta\_home\_odds}=C_H^{AH}-O_H^{AH}, \qquad
+\mathrm{ah\_reld\_home\_odds}= \frac{C_H^{AH}}{O_H^{AH}}-1
 $$
 
 $$
-\mathrm{ah\_delta\_away\_odds}=C_{\text{AH,A}}-O_{\text{AH,A}}, \qquad
-\mathrm{ah\_reld\_away\_odds}= \frac{C_{\text{AH,A}}}{O_{\text{AH,A}}}-1
+\mathrm{ah\_delta\_away\_odds}=C_A^{AH}-O_A^{AH}, \qquad
+\mathrm{ah\_reld\_away\_odds}= \frac{C_A^{AH}}{O_A^{AH}}-1
 $$
-
 ---
 
 ## Models
