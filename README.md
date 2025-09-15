@@ -13,8 +13,6 @@ We used opening and closing odds of [Bet365](https://www.bet365.com/).
 
 ### Notation (symbols used in formulas)
 
-We use short symbols; the **code still uses the original column names**.
-
 - Moneyline open: $O_H$ (B365H), $O_D$ (B365D), $O_A$ (B365A)  
 - Moneyline close: $C_H$ (B365CH), $C_D$ (B365CD), $C_A$ (B365CA)  
 - Totals open: $O_{>2.5}$ (B365>2.5), $O_{<2.5}$ (B365<2.5)  
@@ -111,7 +109,7 @@ All numeric features are imputed and scaled.
 
 ---
 
-## Math
+## Some Math
 
 ### Implied probability (naïve)
 
@@ -212,18 +210,7 @@ Low‑risk uses tighter caps; High‑risk allows larger stakes and more parlay e
 
 ## Worked examples
 
-Single (1X2): if $o=2.20$, $p=0.50$,
-
-$$
-\mathrm{EV}=0.5(2.20-1)-0.5=0.10.
-$$
-
-Parlay (2‑leg): $o_1=1.85$, $p_1=0.58$; $o_2=2.05$, $p_2=0.52$.
-
-$$
-p_{\text{par}}=0.3016,\quad o_{\text{par}}=3.7925,\quad
-\mathrm{EV}_{\text{par}}\approx 0.143.
-$$
+Here is an example how we find an underdog game (EPL: Bournemouth vs Manchester City): (underdog_example.md)
 
 ---
 
@@ -234,7 +221,3 @@ $$
 - No models → run training; verify `models/` has pickles and `meta.json`.
 
 ---
-
-## Ethics & Safety
-
-Prefer **Low** risk mode and small stakes. Stop if it stops being fun.
