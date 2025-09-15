@@ -49,69 +49,70 @@ $$
 \end{aligned}
 $$
 
-### 1 1X2 gaps & changes
+### 1) 1X2 gaps & changes
 
 $$
-\mathrm{ml\_open\_gap} = O_A - O_H
-$$
-
-$$
-\mathrm{ml\_close\_gap} = C_A - C_H
+\mathrm{ml\_{open\_gap}} = O_A - O_H
 $$
 
 $$
-\mathrm{ml\_gap\_change} = \mathrm{ml\_close\_gap} - \mathrm{ml\_open\_gap}
+\mathrm{ml\_{close\_gap}} = C_A - C_H
 $$
 
 $$
-\mathrm{ml\_open\_min} = \min\{O_H,O_D,O_A\}, \quad
-\mathrm{ml\_open\_max} = \max\{O_H,O_D,O_A\}
+\mathrm{ml\_{gap\_change}} = \mathrm{ml\_{close\_gap}} - \mathrm{ml\_{open\_gap}}
 $$
 
 $$
-\mathrm{ml\_close\_min} = \min\{C_H,C_D,C_A\}, \quad
-\mathrm{ml\_close\_max} = \max\{C_H,C_D,C_A\}
+\mathrm{ml\_{open\_min}} = \min\{O_H,O_D,O_A\}, \quad
+\mathrm{ml\_{open\_max}} = \max\{O_H,O_D,O_A\}
 $$
 
 $$
-\mathrm{ml\_delta\_H}=C_H-O_H, \quad \mathrm{ml\_reld\_H}= \frac{C_H}{O_H}-1
+\mathrm{ml\_{close\_min}} = \min\{C_H,C_D,C_A\}, \quad
+\mathrm{ml\_{close\_max}} = \max\{C_H,C_D,C_A\}
 $$
 
 $$
-\mathrm{ml\_delta\_D}=C_D-O_D, \quad \mathrm{ml\_reld\_D}= \frac{C_D}{O_D}-1
+\mathrm{ml\_{delta\_H}}=C_H-O_H, \quad \mathrm{ml\_{reld\_H}}= \frac{C_H}{O_H}-1
 $$
 
 $$
-\mathrm{ml\_delta\_A}=C_A-O_A, \quad \mathrm{ml\_reld\_A}= \frac{C_A}{O_A}-1
-$$
-
-### 2 Totals movement (Over/Under 2.5)
-
-$$
-\mathrm{tot\_delta\_over} = C_O - O_O, \qquad
-\mathrm{tot\_delta\_under} = C_U - O_U
+\mathrm{ml\_{delta\_D}}=C_D-O_D, \quad \mathrm{ml\_{reld\_D}}= \frac{C_D}{O_D}-1
 $$
 
 $$
-\mathrm{tot\_reld\_over} = \frac{C_O}{O_O} - 1, \qquad
-\mathrm{tot\_reld\_under} = \frac{C_U}{O_U} - 1
+\mathrm{ml\_{delta\_A}}=C_A-O_A, \quad \mathrm{ml\_{reld\_A}}= \frac{C_A}{O_A}-1
 $$
 
-### 3 Asian Handicap movement
+### 2) Totals movement (Over/Under 2.5)
 
 $$
-\mathrm{ah\_line\_change} = h_c - h_o
-$$
-
-$$
-\mathrm{ah\_delta\_home\_odds}=C_H^{AH}-O_H^{AH}, \qquad
-\mathrm{ah\_reld\_home\_odds}= \frac{C_H^{AH}}{O_H^{AH}}-1
+\mathrm{tot\_{delta\_{over}}} = C_O - O_O, \qquad
+\mathrm{tot\_{delta\_{under}}} = C_U - O_U
 $$
 
 $$
-\mathrm{ah\_delta\_away\_odds}=C_A^{AH}-O_A^{AH}, \qquad
-\mathrm{ah\_reld\_away\_odds}= \frac{C_A^{AH}}{O_A^{AH}}-1
+\mathrm{tot\_{reld\_{over}}} = \frac{C_O}{O_O} - 1, \qquad
+\mathrm{tot\_{reld\_{under}}} = \frac{C_U}{O_U} - 1
 $$
+
+### 3) Asian Handicap movement
+
+$$
+\mathrm{ah\_{line\_change}} = h_c - h_o
+$$
+
+$$
+\mathrm{ah\_{delta\_{home\_odds}}}=C_H^{AH}-O_H^{AH}, \qquad
+\mathrm{ah\_{reld\_{home\_odds}}}= \frac{C_H^{AH}}{O_H^{AH}}-1
+$$
+
+$$
+\mathrm{ah\_{delta\_{away\_odds}}}=C_A^{AH}-O_A^{AH}, \qquad
+\mathrm{ah\_{reld\_{away\_odds}}}= \frac{C_A^{AH}}{O_A^{AH}}-1
+$$
+
 ---
 
 ## Models
