@@ -210,7 +210,7 @@ Low‑risk uses tighter caps; High‑risk allows larger stakes and more parlay e
 
 ## Worked examples
 
-Here is an example how we find an underdog game (EPL: Bournemouth vs Manchester City): (underdog_example.md)
+Here is an example how we find an underdog game [EPL: Bournemouth vs Manchester City](underdog_example.md)
 
 ---
 
